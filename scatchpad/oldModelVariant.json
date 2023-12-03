@@ -1,0 +1,155 @@
+{
+    "activeOption": true,
+    "addition": false,
+    "additionalDeliveryDateEU": null,
+    "additionalDeliveryDateIM": null,
+    "adjustedDeliveryDateEU": null,
+    "adjustedDeliveryDateIM": null,
+    "brand": {
+      "code": "THEU",
+      "name": "Tommy Hilfiger EU"
+    },
+    "business": {
+      "code": "05",
+      "name": "Sportswear"
+    },
+    "colorCode": "BDS",
+    "colorDescription": "Black",
+    "commercialTheme": null,
+    "consumerAssortment": null,
+    "copiedFromOption": "MW0MW08388BDS",
+    "countryOfDesign": {
+      "code": "004",
+      "name": "TH Europe"
+    },
+    "countryOfOrigin": {
+      "code": "IN",
+      "name": "India"
+    },
+    "countryOfOriginTranslations": {
+      "deu": "India",
+      "eng": "India",
+      "esl": "India",
+      "fra": "India",
+      "ita": "India"
+    },
+    "createdOn": "2023-09-06 15:31:54.157",
+    "creationDate": 1693818316610,
+    "ctpMonth": "June",
+    "deletionDate": 253402210800000,
+    "division": {
+      "code": "01",
+      "name": "01 - TH Menswear"
+    },
+    "documentType": "variant",
+    "dropDate": 1715724000000,
+    "dropDateString": "1715724000000",
+    "dtbCode": {
+      "code": "113702",
+      "name": "113702 - Mens Pants Long Cotton"
+    },
+    "fashionShow": null,
+    "fashionability": {
+      "code": "001",
+      "name": "Essentials"
+    },
+    "fmsCollection": {
+      "code": "SU",
+      "name": "Summer/Pre-Fall"
+    },
+    "fmsSeason": {
+      "code": "SUFA",
+      "name": "Summer/Fall"
+    },
+    "fmsSeasonCode": "2024SUFASU",
+    "fmsSeasonYear": "2024",
+    "forecastCode": null,
+    "gender": {
+      "code": "20",
+      "name": "Men"
+    },
+    "grossWeight": 0.65,
+    "grossWeightUnit": "kilogram",
+    "hexCode": "#262627",
+    "internationalOption": false,
+    "introDate": 1586901600000,
+    "keyLook": null,
+    "lifestyle": {
+      "code": "05",
+      "name": "Tommy Hilfiger"
+    },
+    "lineListOrder": 2132,
+    "mainColor": {
+      "code": "BLK",
+      "name": "Black"
+    },
+    "mainColorTranslations": {
+      "deu": "Black",
+      "eng": "Black",
+      "esl": "Black",
+      "fra": "Black",
+      "ita": "Black"
+    },
+    "marketSellIn": "THE1, INLC",
+    "marketingMainMaterialSustainable": true,
+    "merchTargetQuantity": 0,
+    "modificationDate": 1700056551050,
+    "modifiedOn": "2023-11-25 00:21:55.90",
+    "monitoringType": "reload",
+    "netWeight": 0.5,
+    "omnichannelAssortment": null,
+    "openForEcom": true,
+    "optionCode": "MW0MW08388BDS",
+    "optionStatusCodes": {
+      "INLC": "10",
+      "THE1": "10"
+    },
+    "optionToB2b": true,
+    "optionToEcom": false,
+    "optionToSellIn": true,
+    "optionType": {
+      "code": "OP2",
+      "name": "Carry-over"
+    },
+    "priceBySize": false,
+    "processedOn": "2023-11-25 00:21:54.853",
+    "productDescrDivision": null,
+    "productGroup": {
+      "code": "E1",
+      "name": "Sweatpants"
+    },
+    "productNo": "2024SUFASU_MW0MW08388",
+    "productSegmentation": {
+      "code": "Good",
+      "name": "3"
+    },
+    "productStoryUi": null,
+    "program": "MAINLINE",
+    "readyForB2b": true,
+    "readyForEcom": false,
+    "readyForSellIn": true,
+    "referenceOptionNumber": null,
+    "salesChannels": [
+      "B2B",
+      "SELLIN"
+    ],
+    "salesComments": null,
+    "seasonCodeAfs": "C42",
+    "silhouette": {
+      "code": "003",
+      "name": "Regular"
+    },
+    "sizeRangeOption": "XS;S;M;L;XL;XXL;XXXL",
+    "sourceSystem": "pim360",
+    "styleName": "TOMMY LOGO SWEATPANTS",
+    "subProductGroup": {
+      "code": "FR",
+      "name": "Sweatpants"
+    },
+    "sustainableFibers": [
+      "ORGANIC COTTON"
+    ],
+    "swatchBookNumber": null,
+    "updated": false,
+    "variantNo": "2024SUFASU_MW0MW08388BDS"
+  }
