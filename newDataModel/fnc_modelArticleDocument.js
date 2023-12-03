@@ -34,7 +34,6 @@ function transformDocument(meta, originalDoc) {
 
 function applySpecificTransformations(meta, newDoc, originalDoc) {
     // Specific transformations
-
     transformSupport(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Support Object for ' + meta.id)
 
