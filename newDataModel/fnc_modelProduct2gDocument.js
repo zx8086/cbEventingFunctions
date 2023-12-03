@@ -35,6 +35,9 @@ function transformDocument(meta, originalDoc) {
 
 function applySpecificTransformations(meta, newDoc, originalDoc) {
     // Specific transformations
+    transformSupport(newDoc, originalDoc);
+    formattedLog(meta, '    Transform - Support Object for ' + meta.id)
+
     transformGarment(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Garment Object for ' + meta.id)
 
@@ -53,8 +56,6 @@ function applySpecificTransformations(meta, newDoc, originalDoc) {
     transformSize(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Size Object for ' + meta.id)
 
-    transformSupport(newDoc, originalDoc);
-    formattedLog(meta, '    Transform - Support Object for ' + meta.id)
 
     transformFms(newDoc, originalDoc);
     formattedLog(meta, '    Transform - FMS Object for ' + meta.id)
@@ -114,6 +115,18 @@ function transformAFS(newDoc, originalDoc) {
     };
 }
 
+// FMS Season
+function transformFms(newDoc, originalDoc) {
+    newDoc.fms = {
+        collection: originalDoc.fmsCollection,
+        season: {
+            code: originalDoc.fmsSeason.code,
+            name: originalDoc.fmsSeason.name,
+            year: originalDoc.fmsSeasonYear
+        }
+    };
+}
+
 // Silhouette
 function transformSilhouette(newDoc, originalDoc) {
     newDoc.silhouette = {
@@ -144,18 +157,6 @@ function transformSupport(newDoc, originalDoc) {
         copiedFromStyle: originalDoc.copiedFromStyle,
         monitoringType: originalDoc.monitoringType,
         sourceSystem: originalDoc.sourceSystem       
-    };
-}
-
-// FMS
-function transformFms(newDoc, originalDoc) {
-    newDoc.fms = {
-        collection: originalDoc.fmsCollection,
-        season: {
-            code: originalDoc.fmsSeason.code,
-            name: originalDoc.fmsSeason.name,
-            year: originalDoc.fmsSeasonYear
-        }
     };
 }
 

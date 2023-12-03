@@ -34,11 +34,12 @@ function transformDocument(meta, originalDoc) {
 
 function applySpecificTransformations(meta, newDoc, originalDoc) {
     // Specific transformations
-    transformSize(newDoc, originalDoc);
-    formattedLog(meta, '    Transform - Size Object for ' + meta.id)
 
     transformSupport(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Support Object for ' + meta.id)
+
+    transformSize(newDoc, originalDoc);
+    formattedLog(meta, '    Transform - Size Object for ' + meta.id)
 
     transformFms(newDoc, originalDoc);
     formattedLog(meta, '    Transform - FMS Object for ' + meta.id)
@@ -69,7 +70,7 @@ function transformSupport(newDoc, originalDoc) {
     };
 }
 
-// FMS
+// FMS Season
 function transformFms(newDoc, originalDoc) {
     newDoc.fms = {
         collection: originalDoc.fmsCollection,
