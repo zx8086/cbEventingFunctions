@@ -40,7 +40,7 @@ function applySpecificTransformations(meta, newDoc, originalDoc) {
     transformSize(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Size Object for ' + meta.id)
 
-    transformFms(newDoc, originalDoc);
+    transformFMS(newDoc, originalDoc);
     formattedLog(meta, '    Transform - FMS Object for ' + meta.id)
 
 }
@@ -49,36 +49,42 @@ function applySpecificTransformations(meta, newDoc, originalDoc) {
 
 // Size
 function transformSize(newDoc, originalDoc) {
-    newDoc.size = {
-        main: originalDoc.mainSize,
-        mainIndex: originalDoc.mainSizeIndex,
-        second: originalDoc.secondSize,
-        secondIndex: originalDoc.secondSizeIndex
-    };
+    if (originalDoc) {
+        newDoc.size = {
+            main: originalDoc.mainSize,
+            mainIndex: originalDoc.mainSizeIndex,
+            second: originalDoc.secondSize,
+            secondIndex: originalDoc.secondSizeIndex
+        };
+    }
 }
 
 // Support
 function transformSupport(newDoc, originalDoc) {
-    newDoc.support = {
-        creationDate: originalDoc.creationDate,
-        modificationDate: originalDoc.modificationDate,
-        deletionDate: originalDoc.deletionDate,
-        migratedStyle: originalDoc.migratedStyle,
-        monitoringType: originalDoc.monitoringType,
-        sourceSystem: originalDoc.sourceSystem       
-    };
+    if (originalDoc.creationDate && originalDoc.modificationDate && originalDoc.deletionDate) {
+        newDoc.support = {
+            creationDate: originalDoc.creationDate,
+            modificationDate: originalDoc.modificationDate,
+            deletionDate: originalDoc.deletionDate,
+            migratedStyle: originalDoc.migratedStyle,
+            monitoringType: originalDoc.monitoringType,
+            sourceSystem: originalDoc.sourceSystem
+        };
+    }
 }
 
 // FMS Season
-function transformFms(newDoc, originalDoc) {
-    newDoc.fms = {
-        collection: originalDoc.fmsCollection,
-        season: {
-            code: originalDoc.fmsSeason.code,
-            name: originalDoc.fmsSeason.name,
-            year: originalDoc.fmsSeasonYear
-        }
-    };
+function transformFMS(newDoc, originalDoc) {
+    if (originalDoc.fmsSeason) {
+        newDoc.fms = {
+            collection: originalDoc.fmsCollection,
+            season: {
+                code: originalDoc.fmsSeason.code,
+                name: originalDoc.fmsSeason.name,
+                year: originalDoc.fmsSeasonYear
+            }
+        };
+    }
 }
 
 // Copy untransformed fields

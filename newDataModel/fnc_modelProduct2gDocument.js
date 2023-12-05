@@ -23,8 +23,10 @@ function transformDocument(meta, originalDoc) {
     try {
         applySpecificTransformations(meta, newDoc, originalDoc);
         formattedLog(meta, '    Copy - Untransformed fields in Document for ' + meta.id)
+
         copyUntransformedFields(newDoc, originalDoc);
         formattedLog(meta, 'End - Transforming Document for ' + meta.id)
+
     } catch (e) {
         formattedLog(meta, 'Error in transformDocument for doc id ' + originalDoc.id + ': ' + e.message);
         throw e; // re-throw the exception to prevent the document from being saved
@@ -38,6 +40,12 @@ function applySpecificTransformations(meta, newDoc, originalDoc) {
     transformSupport(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Support Object for ' + meta.id)
 
+    transformFMS(newDoc, originalDoc);
+    formattedLog(meta, '    Transform - FMS Object for ' + meta.id)
+
+    transformAFS(newDoc, originalDoc);
+    formattedLog(meta, '    Transform - AFS Object for ' + meta.id)
+
     transformGarment(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Garment Object for ' + meta.id)
 
@@ -47,18 +55,11 @@ function applySpecificTransformations(meta, newDoc, originalDoc) {
     transformMaterialComposition(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Material Composition Object for ' + meta.id)
 
-    transformAFS(newDoc, originalDoc);
-    formattedLog(meta, '    Transform - AFS Object for ' + meta.id)
-
     transformSilhouette(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Silhouette Object for ' + meta.id)
 
     transformSize(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Size Object for ' + meta.id)
-
-
-    transformFms(newDoc, originalDoc);
-    formattedLog(meta, '    Transform - FMS Object for ' + meta.id)
 
 }
 
@@ -66,34 +67,38 @@ function applySpecificTransformations(meta, newDoc, originalDoc) {
 
 // Garment
 function transformGarment(newDoc, originalDoc) {
-    newDoc.garment = {
-        length: originalDoc.garmentLength,
-        subType: {
-            code: originalDoc.garmentSubType.code,
-            name: originalDoc.garmentSubType.name,
-            translations: originalDoc.garmentSubTypeTranslations
-        },
-        type: {
-            code: originalDoc.garmentType.code,
-            name: originalDoc.garmentType.name,
-            translations: originalDoc.garmentTypeTranslations
-        },
-        wash: originalDoc.garmentWash
-    };
+    if (originalDoc.garmentSubType && originalDoc.garmentType) {
+        newDoc.garment = {
+            length: originalDoc.garmentLength,
+            subType: {
+                code: originalDoc.garmentSubType.code,
+                name: originalDoc.garmentSubType.name,
+                translations: originalDoc.garmentSubTypeTranslations
+            },
+            type: {
+                code: originalDoc.garmentType.code,
+                name: originalDoc.garmentType.name,
+                translations: originalDoc.garmentTypeTranslations
+            },
+            wash: originalDoc.garmentWash
+        };
+    }
 }
 
 // Marketing Main Material
 function transformMarketingMainMaterial(newDoc, originalDoc) {
-    newDoc.marketingMainMaterial = {
-        text: originalDoc.marketingMainMaterial,
-        sustainable: originalDoc.marketingMainMaterialSustainable,
-        sustainableAttribute: originalDoc.marketingMainMaterialSustainableAttribute,
-        sustainableAttributeTranslations: originalDoc.marketingMainMaterialSustainableAttributeTranslations,
-        sustainableFiber: {
-            code: originalDoc.marketingMainMaterialSustainableFiber.code,
-            name: originalDoc.marketingMainMaterialSustainableFiber.name,
-            translations: originalDoc.marketingMainMaterialSustainableFiberTranslations
-        }
+    if (originalDoc.marketingMainMaterialSustainableFiber) {
+        newDoc.marketingMainMaterial = {
+            text: originalDoc.marketingMainMaterial,
+            sustainable: originalDoc.marketingMainMaterialSustainable,
+            sustainableAttribute: originalDoc.marketingMainMaterialSustainableAttribute,
+            sustainableAttributeTranslations: originalDoc.marketingMainMaterialSustainableAttributeTranslations,
+            sustainableFiber: {
+                code: originalDoc.marketingMainMaterialSustainableFiber.code,
+                name: originalDoc.marketingMainMaterialSustainableFiber.name,
+                translations: originalDoc.marketingMainMaterialSustainableFiberTranslations
+            }
+        };
     }
 }
 
@@ -107,44 +112,52 @@ function transformMaterialComposition(newDoc, originalDoc) {
 
 // AFS Season
 function transformAFS(newDoc, originalDoc) {
-    newDoc.afs = {
-        season: {
-            code: originalDoc.seasonCodeAfs,
-            name: originalDoc.season
-        }
-    };
+    if (originalDoc.seasonCodeAfs) {
+        newDoc.afs = {
+            season: {
+                code: originalDoc.seasonCodeAfs,
+                name: originalDoc.season
+            }
+        };
+    }
 }
 
 // FMS Season
-function transformFms(newDoc, originalDoc) {
-    newDoc.fms = {
-        collection: originalDoc.fmsCollection,
-        season: {
-            code: originalDoc.fmsSeason.code,
-            name: originalDoc.fmsSeason.name,
-            year: originalDoc.fmsSeasonYear
-        }
-    };
+function transformFMS(newDoc, originalDoc) {
+    if (originalDoc.fmsSeason) {
+        newDoc.fms = {
+            collection: originalDoc.fmsCollection,
+            season: {
+                code: originalDoc.fmsSeason.code,
+                name: originalDoc.fmsSeason.name,
+                year: originalDoc.fmsSeasonYear
+            }
+        };
+    }
 }
 
 // Silhouette
 function transformSilhouette(newDoc, originalDoc) {
-    newDoc.silhouette = {
-        code: originalDoc.silhouette.code,
-        name: originalDoc.silhouette.name,
-        translations: originalDoc.silhouetteTranslations
-    };
+    if (originalDoc.silhouette) {
+        newDoc.silhouette = {
+            code: originalDoc.silhouette.code,
+            name: originalDoc.silhouette.name,
+            translations: originalDoc.silhouetteTranslations
+        };
+    }
 }
 
 // Size
 function transformSize(newDoc, originalDoc) {
-    newDoc.size = {
-        category: {
-            code: originalDoc.sizeCategory.code,
-            name: originalDoc.sizeCategory.name
-        },
-        code: originalDoc.sizeCode,
-        range: originalDoc.sizeRange
+    if (originalDoc.sizeCategory) {
+        newDoc.size = {
+            category: {
+                code: originalDoc.sizeCategory.code,
+                name: originalDoc.sizeCategory.name
+            },
+            code: originalDoc.sizeCode,
+            range: originalDoc.sizeRange
+        };
     }
 }
 

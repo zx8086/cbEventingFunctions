@@ -37,6 +37,9 @@ function applySpecificTransformations(meta, newDoc, originalDoc) {
     transformSupport(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Support Object for ' + meta.id)
 
+    transformFMS(newDoc, originalDoc);
+    formattedLog(meta, '    Transform - FMS Object for ' + meta.id)
+
     transformVisibility(newDoc, originalDoc);
     formattedLog(meta, '    Transform - Visibility Object for ' + meta.id)
 
@@ -51,16 +54,13 @@ function applySpecificTransformations(meta, newDoc, originalDoc) {
 
     transformCountryOfOrigin(newDoc, originalDoc);
     formattedLog(meta, '    Transform - CountryOfOrigin Object for ' + meta.id)
-
-    transformFms(newDoc, originalDoc);
-    formattedLog(meta, '    Transform - FMS Object for ' + meta.id)
-
 }
 
 // Specific transformations (broken down to each object for clarity)
 
 // Delivery date
 function transformDeliveryDate(newDoc, originalDoc) {
+    if (originalDoc) {
     newDoc.deliveryDate = {
         additionalEU: originalDoc.additionalDeliveryDateEU,
         additionalIM: originalDoc.additionalDeliveryDateIM,
@@ -71,53 +71,61 @@ function transformDeliveryDate(newDoc, originalDoc) {
         dropDateString: originalDoc.dropDateString
     };
 }
+}
 
 // Weight (Gross + Net)
 function transformWeight(newDoc, originalDoc) {
+    if (originalDoc) {
     newDoc.weight = {
         net: originalDoc.netWeight,
         gross: originalDoc.grossWeight,
         grossUnit: originalDoc.grossWeightUnit
     };
 }
+}
 
 // Color
 function transformColor(newDoc, originalDoc) {
-    newDoc.color = {
-        code: originalDoc.colorCode,
-        description : originalDoc.colorDescription,
-        mainColor: {
-            code: originalDoc.mainColor.code,
-            name: originalDoc.mainColor.name,
-            translations: {
-                deu: originalDoc.mainColorTranslations.deu,
-                eng: originalDoc.mainColorTranslations.eng,
-                esl: originalDoc.mainColorTranslations.esl,
-                fra: originalDoc.mainColorTranslations.fra,
-                ita: originalDoc.mainColorTranslations.ita
-            },
-            hexCode: originalDoc.mainColorHexCode
-        }
-    };
+    if (originalDoc.mainColor && originalDoc.mainColorTranslations)
+    {    newDoc.color = {
+            code: originalDoc.colorCode,
+            description : originalDoc.colorDescription,
+            mainColor: {
+                code: originalDoc.mainColor.code,
+                name: originalDoc.mainColor.name,
+                translations: {
+                    deu: originalDoc.mainColorTranslations.deu,
+                    eng: originalDoc.mainColorTranslations.eng,
+                    esl: originalDoc.mainColorTranslations.esl,
+                    fra: originalDoc.mainColorTranslations.fra,
+                    ita: originalDoc.mainColorTranslations.ita
+                },
+                hexCode: originalDoc.mainColorHexCode
+            }
+        };
+    }
 }
 
 // Country of Origin
 function transformCountryOfOrigin(newDoc, originalDoc) {
-    newDoc.countryOfOrigin = {
-        code: originalDoc.countryOfOrigin.code,
-        name: originalDoc.countryOfOrigin.name,
-        translations: {
-            deu: originalDoc.countryOfOriginTranslations.deu,
-            eng: originalDoc.countryOfOriginTranslations.eng,
-            esl: originalDoc.countryOfOriginTranslations.esl,
-            fra: originalDoc.countryOfOriginTranslations.fra,
-            ita: originalDoc.countryOfOriginTranslations.ita
+    if (originalDoc.countryOfOrigin && originalDoc.countryOfOriginTranslations) {
+        newDoc.countryOfOrigin = {
+            code: originalDoc.countryOfOrigin.code,
+            name: originalDoc.countryOfOrigin.name,
+            translations: {
+                deu: originalDoc.countryOfOriginTranslations.deu,
+                eng: originalDoc.countryOfOriginTranslations.eng,
+                esl: originalDoc.countryOfOriginTranslations.esl,
+                fra: originalDoc.countryOfOriginTranslations.fra,
+                ita: originalDoc.countryOfOriginTranslations.ita
         }
     };
+}
 }
 
 // Visibility
 function transformVisibility(newDoc, originalDoc) {
+    if (originalDoc) {
     newDoc.visibility = {
         activeOption: originalDoc.activeOption,
         salesChannels: originalDoc.salesChannels,
@@ -134,9 +142,11 @@ function transformVisibility(newDoc, originalDoc) {
         consumerAssortment: originalDoc.consumerAssortment
     };
 }
+}
 
 // Support
 function transformSupport(newDoc, originalDoc) {
+    if (originalDoc) {
     newDoc.support = {
         creationDate: originalDoc.creationDate,
         copiedFromOption: originalDoc.copiedFromOption,
@@ -147,17 +157,20 @@ function transformSupport(newDoc, originalDoc) {
         monitoringType: originalDoc.monitoringType
     };
 }
+}
 
 // FMS Season
-function transformFms(newDoc, originalDoc) {
-    newDoc.fms = {
-        collection: originalDoc.fmsCollection,
-        season: {
-            code: originalDoc.fmsSeason.code,
-            name: originalDoc.fmsSeason.name,
-            year: originalDoc.fmsSeasonYear
-        }
-    };
+function transformFMS(newDoc, originalDoc) {
+    if (originalDoc.fmsSeason) {
+        newDoc.fms = {
+            collection: originalDoc.fmsCollection,
+            season: {
+                code: originalDoc.fmsSeason.code,
+                name: originalDoc.fmsSeason.name,
+                year: originalDoc.fmsSeasonYear
+            }
+        };
+    }
 }
 
 // Copy untransformed fields
